@@ -23,7 +23,7 @@ from datetime import datetime
 # ─────────────────────────────────────────────────────────────────────────────
 # Configuration
 # ─────────────────────────────────────────────────────────────────────────────
-API_BASE = "http://localhost:8000"
+API_BASE = "https://crypto-trading-assistant.onrender.com"
 
 st.set_page_config(
     page_title="AI Crypto Trading Assistant",

@@ -107,6 +107,16 @@ app.add_middleware(
 # ENDPOINT 1: GET /price/{coin_id}
 # Simplest endpoint — fetch and return current price
 # ─────────────────────────────────────────────────────────────────────────────
+@app.get("/")
+async def root():
+    return {
+        "message": "AI Crypto Trading Assistant API",
+        "docs": "/docs",
+        "health": "/health",
+        "endpoints": ["/price/{coin}", "/prediction/{coin}", "/analysis/{coin}", "/chat"]
+    }
+
+
 @app.get(
     "/price/{coin_id}",
     response_model=PriceResponse,
@@ -334,3 +344,5 @@ async def health():
         status="ok",
         model_loaded=pipeline is not None
     )
+
+
