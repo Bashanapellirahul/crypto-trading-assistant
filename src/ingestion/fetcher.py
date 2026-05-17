@@ -12,6 +12,10 @@ logger = logging.getLogger(__name__)
 BASE_URL = "https://api.coingecko.com/api/v3"
 RATE_LIMIT_DELAY = 1.2
 
+SUPPORTED_COINS = ["bitcoin", "ethereum", "solana"]
+
+DEFAULT_HISTORY_DAYS = 180
+
 
 def fetch_current_price(coin_id: str, currency: str = "usd",
                         max_retries: int = 3) -> dict | None:
@@ -206,8 +210,8 @@ if __name__ == "__main__":
         save_raw_response("bitcoin", history, "history")
     else:
         print("  FAILED")
-
-    time.sleep(RATE_LIMIT_DELAY)
+            
+        time.sleep(RATE_LIMIT_DELAY)
 
     # Test 3: Multiple coins
     print("\nTest 3: Fetching multiple coins...")
