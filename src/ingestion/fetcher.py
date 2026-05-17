@@ -56,13 +56,11 @@ def fetch_current_price(coin_id: str, currency: str = "usd",
                 "currency":   currency
             }
 
-            logger.info(f'Successfully fetched {coin_id}: ' + 
-                        f'${result['price']:,.2f}')
+            logger.info(f"Successfully fetched {coin_id}: ${result['price']:,.2f}")
             return result
         
         except requests.exceptions.Timeout:
-            logger.warning(f"Attempt {attempt}: " +
-                           f"Request timed out for {coin_id}")
+            logger.warning(f"Attempt {attempt}: Request timed out for {coin_id}")
             if attempt < max_retries:
                 wait = 2**max_retries
                 logger.info(f"Waiting {wait}s before retry...")
@@ -157,7 +155,7 @@ def fetch_price_history(coin_id: str, days: int = 90, currency: str = "usd",
 def save_raw_response(coin_id: str, data: dict | list, data_type: str) -> str:
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f'{coin_id}_{data_type}_{timestamp}.json'
+    filename = f"{coin_id}_{data_type}_{timestamp}.json"
     filepath = os.path.join("data", "raw", filename)
 
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
