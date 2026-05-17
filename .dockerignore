@@ -1,0 +1,12 @@
+# .dockerignore
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.env
+data/raw/
+*.pkl
+.DS_Store
+.git/
+notebooks/
