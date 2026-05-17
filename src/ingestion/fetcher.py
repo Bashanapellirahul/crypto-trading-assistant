@@ -32,8 +32,7 @@ def fetch_current_price(coin_id: str, currency: str = "usd",
 
     for attempt in range(1, max_retries+1):
         try:
-            logger.info(f'Fetchhing price for {coin_id}' +
-                        f'(attempt {attempt}/{max_retries})')
+            logger.info(f"Fetching price for {coin_id} (attempt {attempt}/{max_retries})")
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
 
@@ -46,13 +45,15 @@ def fetch_current_price(coin_id: str, currency: str = "usd",
             
             coin_data = data[coin_id]
 
+            raw_change = coin_data.get(f"{currency}_24h_change")
+
             result = {
-                "coin_id": coin_id,
-                "price": coin_data.get(currency),
-                "change_24h": coin_data.get(f'{currency}_24h_change'),
-                "market_cap": coin_data.get(f'{currency}_market_cap'),
-                "24hr_volume": coin_data.get(f'{currency}_24hr_volume'),
-                "currency": currency
+                "coin_id":    coin_id,
+                "price":      coin_data.get(currency),
+                "change_24h": round(raw_change, 4) if raw_change is not None else None,
+                "market_cap": coin_data.get(f"{currency}_market_cap"),
+                "volume_24h": coin_data.get(f"{currency}_24h_vol"),   # ← this was the broken key
+                "currency":   currency
             }
 
             logger.info(f'Successfully fetched {coin_id}: ' + 
